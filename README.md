@@ -56,17 +56,17 @@ Then we freeze the parameter of summarization model and only update this new pre
 Previous work on few-shot summariztaion either focuses on one type of data, e.g., monologue, or experiments on miscellaneous few-shot samples.
 These make the evaluation from different research not comparable.
 
-Thus, we assemble a new benchmark, SummZoo, based two principles, namely diversity and robustness.
+Thus, we assemble a new benchmark, SummZoo, based on two principles, namely diversity and robustness.
 
 <p align="center">
     <img src="./figures/summzoo.png" width="666" alt="summzoo">
 </p>
 
 ### Data Collection
-We assemble SumZoo from 8 popular summarization datasets.
+We assemble SummZoo from 8 popular summarization datasets.
 The statistic is shown in the above table.
 
-We tokenized data in SummZoo, which can be directly used for UniSumm.
+We tokenized data in SummZoo, which can be directly used for training UniSumm.
 You can download the tokenized data [here](https://drive.google.com/file/d/1gjOqQ_GKJp2LZxUCiblGGqA60V7epQHB/view?usp=share_link), and untokenized data [here](https://drive.google.com/file/d/1_sTerMkKJVPSXVDDK-F-mzZ1fTvR4NB9/view?usp=share_link).
 
 
@@ -87,7 +87,7 @@ cd apex
 pip install -v --disable-pip-version-check --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
 ```
 
-And you can unzip the downloaded SummzZoo data in the data folder: ```unzip Summzoo.zip -d data```.
+And you can unzip the downloaded SummZoo data in the data folder (/UniSumm/unisumm/data): ```unzip Summzoo.zip -d data```.
 
 
 ## Usage
@@ -97,7 +97,7 @@ We release the checkpoint of multi-task pre-trained UniSumm [here](https://drive
 After downloaded, unzip it in the current folder (UniSumm/unisumm): ```unzip unisumm_model.zip```.
 
 ### Prefix-tune the Phase-1 Model
-Then, ```cd nlg-finetune```, and you can easily tune unisumm using prefix-tuning. 
+Then, ```cd nlg-finetune```, and you can easily tune UniSumm using prefix-tuning. 
 The following command shows an example of how to tune UniSumm on 10-shot QMSum (sample group 42) on 4 A100 GPUs.
 ```
 export TRAIN_FILE=../data/Summzoo/qmsum/10-shot/train.jsonl.h10.s42
@@ -110,7 +110,7 @@ rm $OUTPUT_DIR -rf
 
 export CUDA_VISIBLE_DEVICES=0,1,2,3
 python -m torch.distributed.launch --master_port 8888 --nproc_per_node 4 \
-run_seq2seq.py
+run_seq2seq.py \
 --train_file $TRAIN_FILE \
 --output_dir $OUTPUT_DIR  \
 --model_type bart \
@@ -136,7 +136,7 @@ run_seq2seq.py
 --task_map_file $TASK_MAP_FILE
 ```
 
-Note that to due fair comparison, the hyperparameter choice is based on previous work and empirical consideration.
+Note that for fair comparison, the hyperparameter choice is based on previous work and empirical consideration.
 In real practice, you could search hyperparameters for better performance.
 
 ### Inference
@@ -150,7 +150,7 @@ export INPUT_FILE=../data/Summzoo/qmsum/test/qmsum.test.bart.uncased.jsonl
 
 mkdir ../unisumm_outs
 
-CUDA_VISIBLE_DEVICES=0 python decode_seq2seq.py   
+CUDA_VISIBLE_DEVICES=0 python decode_seq2seq.py \
 --fp16 \
 --do_lower_case \
 --model_path $MODEL_PATH \
@@ -160,14 +160,14 @@ CUDA_VISIBLE_DEVICES=0 python decode_seq2seq.py
 --beam_size 5 \
 --length_penalty 0.6 \
 --mode s2s \
---min_len 60\
+--min_len 60 \
 --input_file $INPUT_FILE \
 --decode_task 'universal' \
 --task_map_file $TASK_MAP_FILE \
---output_file  $SAVE_PATH
+--output_file $SAVE_PATH
 ```
 
-Then you should see the output file ```qmsum.10.42``` in the ```unisumm_outs``` folder.
+Then you should see the output file ```qmsum.10.42``` in the ```/UniSumm/unisumm/unisumm_outs``` folder.
 
 
 ### Get All Results in One Command
@@ -188,7 +188,7 @@ Rouge-L F1: 0.23300
 ```
 
 ## Citation
-When using SummZoo for evaluation, please cite all individual papers where orginial datasets are introduce. 
+When using SummZoo for evaluation, please cite all individual papers where orginial datasets are introduced. 
 See [Summzoo.bib](https://github.com/microsoft/UniSumm/blob/main/Summzoo.bib)
 
 
