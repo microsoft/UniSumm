@@ -25,7 +25,7 @@ If you use UniSumm and SummZoo, please kindly cite our paper:
 3. [**Setup**](#setup)
 4. [**Usage**](#usage)
 5. [**Evaluation**](#evaluation)
-6. [**Citation Issue**](#citation-issue)
+6. [**Citation**](#citation)
 
 
 
@@ -75,8 +75,8 @@ For training and inference, please setup the following environment using Python>
 
 ```
 pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
-pip clone https://github.com/cylnlp/unisumm.git
-cd unisumm-main/unisumm
+pip clone https://github.com/microsoft/UniSumm.git
+cd UniSumm/unisumm
 pip install -r requirements.txt
 ```
 
@@ -94,7 +94,7 @@ And you can unzip the downloaded SummzZoo data in the data folder: ```unzip Summ
 ### Get the Multi-task Pre-trained UniSumm (Phase-1 Model)
 We release the checkpoint of multi-task pre-trained UniSumm [here](https://drive.google.com/file/d/1dDF284w5FfzwcZ_08b070pdy4bdbc02a/view?usp=share_link).
 
-After downloaded, unzip it in the current folder (unisumm-main/unisumm): ```unzip unisumm_model.zip```.
+After downloaded, unzip it in the current folder (UniSumm/unisumm): ```unzip unisumm_model.zip```.
 
 ### Prefix-tune the Phase-1 Model
 Then, ```cd nlg-finetune```, and you can easily tune unisumm using prefix-tuning. 
@@ -175,7 +175,7 @@ In the ```nlg-finetune``` folder, by running the below command, you will get mod
 ```
 bash run.sh
 ```
-Note that the above command may not utilize your GPUs effiently and the inference time can be time parcularly long, you need to modifiy it according to your resources.
+Note that the above command may not utilize your GPUs effiently and the inference time can be parcularly long, you need to modifiy it according to your resources.
 
 
 ## Evaluation
