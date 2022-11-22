@@ -75,7 +75,7 @@ For training and inference, please setup the following environment using Python>
 
 ```
 pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
-pip clone https://github.com/microsoft/UniSumm.git
+git clone https://github.com/microsoft/UniSumm.git
 cd UniSumm/unisumm
 pip install -r requirements.txt
 ```
@@ -179,7 +179,8 @@ Note that the above command may not utilize your GPUs effiently and the inferenc
 
 
 ## Evaluation
-We use files2rouge for evaluation, you could refer to [files2rouge](https://github.com/pltrdy/files2rouge#getting-started) to setup and evaluate:
+We use files2rouge for evaluation, you could refer to [files2rouge](https://github.com/pltrdy/files2rouge#getting-started) to setup and evaluate.
+The reference is stored as ```test.tgt``` in the ```test``` folder of each task folder, for example: ```Summzoo/qmsum/test/test.tgt```.
 You should get similar scores by evaluating the above generated summary on QMSum testset:
 ```
 Rouge-1 F1: 0.36482
