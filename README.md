@@ -189,7 +189,7 @@ Rouge-L F1: 0.23300
 
 ## Citation
 When using SummZoo for evaluation, please cite all individual papers where orginial datasets are introduce. 
-See [Summzoo.bib](https://github.com/cylnlp/unisumm/blob/main/Summzoo.bib)
+See [Summzoo.bib](https://github.com/microsoft/UniSumm/blob/main/Summzoo.bib)
 
 
 
