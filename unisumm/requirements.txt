@@ -1,2 +1,2 @@
 tensorboardX
-transformers==4.2
+transformers==4.30.0
